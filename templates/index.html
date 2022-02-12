@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Counter</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, p {
+            margin: 1rem 0
+        }
+
+        .btn {
+            /* display: inline-block; */
+            padding: .25rem .5rem;
+            background-color: greenyellow;
+            border: 0;
+            border-radius: 4px;
+            box-shadow: 2px 2px 6px black;
+            margin: 1rem 1.5rem;
+        }
+
+        .color {
+            background-color: red;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background-color: bisque;
+            color: coral;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            height: 40vh;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <h1>COUNTER</h1>
+            <div class="holder">
+                <p>The index page has been viewed {{ session['view_count'] }} time(s).</p>
+                    <p>{% if 'increment_count' in session: %}
+                    Actual Views: {{ session['view_count'] - session['increment_count'] }} - User Added Views: {{ session['increment_count'] }}
+                    {% else: %}
+                    Actual Views: {{ session['view_count'] }} - User Added Views: 0
+                    {% endif %}</p>
+                </p>
+            </div>
+            <span>
+                <input type="button" class="btn" value="Add 3" onclick="add3()">
+                <input type="button" class="btn color" value="Reset" onclick="destroy()">
+            </span>
+            <form action="/add_x" method="post">
+                <label for="how_many">Increment the view count: </label>
+                <input type="number" name="how_many" id="how_many">
+                <input type="submit" value="Add Views" class="btn">
+            </form>
+        </div>
+        <script>
+            function add3() {
+                self.location = "/add_3";
+            }
+
+            function destroy() {
+                self.location = "/destroy_session"
+            }
+        </script>
+    </div>
+</body>
+</html>
